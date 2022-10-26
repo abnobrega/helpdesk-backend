@@ -42,7 +42,7 @@ public enum Perfil {
 			}
 		}
 		
-		//Lançar exceção
+		//Lançar uma exceção
 		throw new IllegalArgumentException("Perfil inválido.");
 	}
 	

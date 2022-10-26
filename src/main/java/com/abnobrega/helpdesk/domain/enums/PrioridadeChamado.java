@@ -46,5 +46,4 @@ public enum PrioridadeChamado {
 		throw new IllegalArgumentException("Prioridade do chamado inválida.");
 	}
 	
-	
 }

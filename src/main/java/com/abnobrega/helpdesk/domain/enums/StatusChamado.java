@@ -46,5 +46,4 @@ public enum StatusChamado {
 		throw new IllegalArgumentException("Status do chamado inválido.");
 	}
 	
-	
 }
