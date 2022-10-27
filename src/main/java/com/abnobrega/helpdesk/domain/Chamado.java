@@ -1,26 +1,47 @@
 package com.abnobrega.helpdesk.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.abnobrega.helpdesk.domain.enums.PrioridadeChamado;
 import com.abnobrega.helpdesk.domain.enums.StatusChamado;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class Chamado {
+@Entity
+public class Chamado implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	//*************************
 	//******* ATRIBUTOS *******
 	//*************************	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 	
 	private Integer id;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataAbertura = LocalDate.now(); //Recebe a data do sistema
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")	
 	private LocalDate dataFechamento;
+	
 	private PrioridadeChamado prioridadeChamado;
 	private StatusChamado statusChamado;
 	private String titulo;
 	private String observacoes;
 	
+	@ManyToOne
+	@JoinColumn(name = "tecnico_id")
 	private Tecnico tecnico;
+
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")	
 	private Cliente cliente;
 	
 	//****************************

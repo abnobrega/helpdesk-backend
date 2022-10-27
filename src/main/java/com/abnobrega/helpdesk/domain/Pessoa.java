@@ -1,24 +1,48 @@
 package com.abnobrega.helpdesk.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import com.abnobrega.helpdesk.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-public abstract class Pessoa {
-
+@Entity
+public abstract class Pessoa implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	//*************************
 	//******* ATRIBUTOS *******
 	//*************************	
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	protected Integer id;
 	protected String nome;
+	
+	@Column(unique = true, name = "cpf", length=11)	
 	protected String cpf;
+	
+	@Column(unique = true, length=25)	
 	protected String email;
 	protected String senha;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();	
+	
 	// Lista de perfis, onde: HashSet evita ponteiros nulos e Set evita perfis duplicados
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PERFIS")
 	protected Set<Integer> perfis = new HashSet<>();
 
 	//****************************
@@ -37,8 +61,7 @@ public abstract class Pessoa {
 		this.cpf = cpf;
 		this.email = email;
 		this.senha = senha;
-		// RN001: Todo usuário criado terá pelo menos o perfil CLIENTE.
-		addPerfis(Perfil.CLIENTE);		
+		addPerfis(Perfil.CLIENTE); 	// RN001		
 	}
 
 	//*************************
@@ -143,17 +166,5 @@ public abstract class Pessoa {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
