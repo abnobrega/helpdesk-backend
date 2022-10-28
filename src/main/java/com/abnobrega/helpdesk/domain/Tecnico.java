@@ -23,12 +23,12 @@ public class Tecnico extends Pessoa {
 	//****************************	
 	public Tecnico() {
 		super();
-		addPerfis(Perfil.CLIENTE);	// RN001			
+		addPerfil(Perfil.CLIENTE);	// RN001			
 	}
 
 	public Tecnico(Integer id, String nome, String cpf, String email, String senha) {
 		super(id, nome, cpf, email, senha);
-		addPerfis(Perfil.CLIENTE);	// RN001			
+		addPerfil(Perfil.CLIENTE);	// RN001			
 	}
 
 	//*************************
