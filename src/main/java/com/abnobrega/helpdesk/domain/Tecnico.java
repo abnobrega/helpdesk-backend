@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.abnobrega.helpdesk.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Tecnico extends Pessoa {
@@ -15,6 +16,9 @@ public class Tecnico extends Pessoa {
 	//*************************
 	//******* ATRIBUTOS *******
 	//*************************		
+
+	// TECNICO 1:n CHAMADO	
+    @JsonIgnore // Informa para o parse OBJ <=> JSON que ignore esse atributo no JSON
 	@OneToMany(mappedBy = "tecnico")
 	private List<Chamado> chamados = new ArrayList<>();
 
