@@ -53,7 +53,6 @@ public class TecnicoDTO implements Serializable {
 		 * Pra isso, dou um collect, coletando tudo Collector e fazendo a conversão para Set (lista) 
 		 */		
 	}
-	
 
 	//*************************
 	//*******  MÉTODOS  *******
