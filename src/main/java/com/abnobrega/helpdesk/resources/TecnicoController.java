@@ -1,5 +1,8 @@
 package com.abnobrega.helpdesk.resources;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,11 +36,17 @@ public class TecnicoController {
 	@GetMapping(value = "/{id}")
 	// localhost/api/tecnicos/id	
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
-		
 		Tecnico obj = tecnicoService.findById(id);
 		// Retornar o TecnicoDTO para o cliente.
 		return ResponseEntity.ok().body(new TecnicoDTO(obj));
 				
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<TecnicoDTO>> findAll() {
+		List<Tecnico> lista = tecnicoService.ListarTecnicos();
+		List<TecnicoDTO> listaDTO = lista.stream().map(obj -> new TecnicoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listaDTO); // No corpo da resposta retorno uma lista.
 	}
 
 }
