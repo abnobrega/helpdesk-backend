@@ -33,7 +33,7 @@ public class DBService {
 		
 		Tecnico tec2 = new Tecnico(null, "Ricardo Stallman", "623.572.010-61", "rsatllman@gmail.com", "123");
 		tec2.addPerfil(Perfil.TECNICO);		
-		Tecnico tec3 = new Tecnico(null, "Cláudia Shanon", "623.572.010-61", "cshanon@gmail.com", "123");
+		Tecnico tec3 = new Tecnico(null, "Cláudia Shanon", "290.951.710-19", "cshanon@gmail.com", "123");
 		tec3.addPerfil(Perfil.TECNICO);			
 		Tecnico tec4 = new Tecnico(null, "Mônica Veloso", "715.946.450-86", "mveloso@gmail.com", "123");
 		tec4.addPerfil(Perfil.TECNICO);			
@@ -41,15 +41,15 @@ public class DBService {
 		tec5.addPerfil(Perfil.TECNICO);	
 
 		Cliente cli1 = new Cliente(null, "Albert Einstein", "561.428.420-66", "aeinstein@gmail.com", "1234");
-		cli1.addPerfil(Perfil.CLIENTE);
+		//cli1.addPerfil(Perfil.CLIENTE);
 		Cliente cli2 = new Cliente(null, "Marie Curie", "029.270.800-97", "mcurie@gmail.com", "1234");
-		cli2.addPerfil(Perfil.CLIENTE);	
+		//cli2.addPerfil(Perfil.CLIENTE);	
 		Cliente cli3 = new Cliente(null, "Charles Darwin", "086.200.030-03", "cdarwin@gmail.com", "1234");
-		cli3.addPerfil(Perfil.CLIENTE);
+		//cli3.addPerfil(Perfil.CLIENTE);
 		Cliente cli4 = new Cliente(null, "Tom Jobim", "732.178.090-25", "tjobim@gmail.com", "1234");
-		cli4.addPerfil(Perfil.CLIENTE);			
+		//cli4.addPerfil(Perfil.CLIENTE);			
 		Cliente cli5 = new Cliente(null, "Ivan Lins", "747.052.940-33", "ilins@gmail.com", "1234");
-		cli5.addPerfil(Perfil.CLIENTE);			
+		//cli5.addPerfil(Perfil.CLIENTE);			
 
 		Chamado cha1 = new Chamado(null, PrioridadeChamado.MEDIA, StatusChamado.ANDAMENTO, "Chamado 01",
 				"Teste chamado 1", tec1, cli1);

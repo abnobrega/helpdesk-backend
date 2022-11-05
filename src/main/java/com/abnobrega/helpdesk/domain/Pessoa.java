@@ -30,10 +30,10 @@ public abstract class Pessoa implements Serializable {
 	protected Integer id;
 	protected String nome;
 	
-	@Column(unique = true)	
+	@Column(name = "cpf", unique = true)
 	protected String cpf;
 	
-	@Column(unique = true)	
+	@Column(unique = true)
 	protected String email;
 	protected String senha;
 	
