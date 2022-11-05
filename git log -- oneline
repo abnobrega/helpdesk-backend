@@ -1,0 +1,71 @@
+[33mcommit 42c14e4ec581936ca68831128810973542bb828a[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: abnobrega <abonturi@gmail.com>
+Date:   Thu Nov 3 13:57:04 2022 -0300
+
+    Endpoint findAll para tecnicos
+
+[33mcommit 29f2ad9653483e9c0efac7ceaec2cca2264547f0[m
+Author: abnobrega <abonturi@gmail.com>
+Date:   Wed Nov 2 20:41:30 2022 -0300
+
+    Exceção para objeto não  encontrado
+
+[33mcommit 18f3708ad3d6383c1f84ad6fb70108d357b01904[m
+Author: abnobrega <abonturi@gmail.com>
+Date:   Wed Nov 2 18:20:00 2022 -0300
+
+    Padrão DTO para Tecnico
+
+[33mcommit f8b1145fc4619b26c7d5b38caac57729cd9bfb6b[m
+Author: abnobrega <abonturi@gmail.com>
+Date:   Wed Nov 2 16:43:42 2022 -0300
+
+    endpoint findById para tecnico
+
+[33mcommit 741c7e201f4ae1419d2ae872230f491a1afe30d0[m
+Author: abnobrega <abonturi@gmail.com>
+Date:   Tue Nov 1 18:25:24 2022 -0300
+
+    Perfil de desenvolvimento
+
+[33mcommit c04ef6466bb8716041ad45917c6dda747a9a8520[m
+Author: abnobrega <abonturi@gmail.com>
+Date:   Tue Nov 1 14:03:06 2022 -0300
+
+    Perfil de teste criado
+
+[33mcommit 8832778e64b2da7d037fc09d3473dc032b480f91[m
+Author: abnobrega <abonturi@gmail.com>
+Date:   Fri Oct 28 09:04:39 2022 -0300
+
+    Carga inicial da base de dados
+
+[33mcommit e3c1772bbe1daef2f954d5d33463c5a4093ec2f6[m
+Author: abnobrega <abonturi@gmail.com>
+Date:   Fri Oct 28 08:59:54 2022 -0300
+
+    Repositories criados
+
+[33mcommit a61fe3ad9460d67eb82abf7ef55588e647da6e1e[m
+Author: abnobrega <abonturi@gmail.com>
+Date:   Wed Oct 26 22:02:24 2022 -0300
+
+    Anotações JPA para classes de domínio
+
+[33mcommit 43cbd60bcf7d1a2ae22c2f940e78b067ed7e18aa[m
+Author: abnobrega <abonturi@gmail.com>
+Date:   Wed Oct 26 15:46:16 2022 -0300
+
+    Classes de domínio iniciadas
+
+[33mcommit d66cfb84f8b85b3a54c023e62be7dc85b3c743a7[m
+Author: abnobrega <abonturi@gmail.com>
+Date:   Wed Oct 26 09:44:53 2022 -0300
+
+    Tipos enumerados criados
+
+[33mcommit 0618454a550473004aa0969d686bb9c404aadb2a[m
+Author: abnobrega <abonturi@gmail.com>
+Date:   Tue Oct 25 16:10:39 2022 -0300
+
+    projeto iniciado

@@ -1,5 +1,6 @@
 package com.abnobrega.helpdesk.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.abnobrega.helpdesk.domain.Tecnico;
 import com.abnobrega.helpdesk.dtos.TecnicoDTO;
@@ -47,6 +51,21 @@ public class TecnicoController {
 		List<Tecnico> lista = tecnicoService.ListarTecnicos();
 		List<TecnicoDTO> listaDTO = lista.stream().map(obj -> new TecnicoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listaDTO); // No corpo da resposta retorno uma lista.
+	}
+	
+	@PostMapping
+	public ResponseEntity<TecnicoDTO> incluirTecnico(@RequestBody TecnicoDTO objDTO) {
+		Tecnico newObj = tecnicoService.inluirTecnico(objDTO);
+		/* Quando crio um novo objeto no BD ele recebe um id. Logo, é importante eu retornar
+		 * para o usuário, na aplicação cliente, a (URL = URI) de acesso a esse novo objeto.  
+		 * Isto é como se estivéssemos retornando o id do objeto criado para o usuário.
+		 */
+		URI uri = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(newObj.getId()).toUri();
+		
+		return ResponseEntity.created(uri).build();
 	}
 
 }

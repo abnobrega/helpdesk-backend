@@ -36,6 +36,7 @@ public class TecnicoDTO implements Serializable {
 	// ****************************
 	public TecnicoDTO() {
 		super();
+		setPerfil(Perfil.CLIENTE);		
 	}
 
 	public TecnicoDTO(Tecnico obj) {
@@ -52,6 +53,7 @@ public class TecnicoDTO implements Serializable {
 		 * onde para cada perfil x vamos chamar o método getCodigo e adicionamos na minha lista. 
 		 * Pra isso, dou um collect, coletando tudo Collector e fazendo a conversão para Set (lista) 
 		 */		
+		setPerfil(Perfil.CLIENTE);
 	}
 
 	//*************************
