@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,9 +37,13 @@ public class TecnicoController {
 	@Autowired
 	private TecnicoService tecnicoService;
 	
-    //***********************************************
-    //************** C O N S U L T A R **************
-    //***********************************************
+    //*************************************************
+    //************** M  É  T  O  D  O  S **************
+    //*************************************************
+	
+    //*********************************
+    //******* C O N S U L T A R *******
+    //*********************************
 	@GetMapping(value = "/{id}")
 	// localhost/api/tecnicos/id	
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
@@ -55,6 +60,9 @@ public class TecnicoController {
 		return ResponseEntity.ok().body(listaDTO); // No corpo da resposta retorno uma lista.
 	}
 	
+    //*****************************
+    //******* I N C L U I R *******
+    //*****************************	
 	@PostMapping
 	public ResponseEntity<TecnicoDTO> incluirTecnico(@Valid @RequestBody TecnicoDTO objDTO) {
 		Tecnico newObj = tecnicoService.inluirTecnico(objDTO);
@@ -69,6 +77,18 @@ public class TecnicoController {
 		 * esse novo objeto. Isto é como se estivéssemos retornando o id do objeto 
 		 * criado para o usuário.
 		 */
+	}
+	
+    //*********************************
+    //******* A T U A L I Z A R *******
+    //*********************************	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<TecnicoDTO> atualizarTecnico(@PathVariable Integer id,
+													   @Valid @RequestBody TecnicoDTO objDto){
+		Tecnico objAtualizado = tecnicoService.atualizarTecnico(id, objDto);
+
+		// No corpo da resposta crio um novo tecnicoDTO passando o objAtualizado como parâmetro.
+		return ResponseEntity.ok().body(new TecnicoDTO(objAtualizado));
 	}
 
 }

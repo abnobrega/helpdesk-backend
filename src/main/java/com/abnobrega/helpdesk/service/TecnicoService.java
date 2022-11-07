@@ -3,6 +3,8 @@ package com.abnobrega.helpdesk.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,10 @@ public class TecnicoService {
     //*************************************************
     //************** M  É  T  O  D  O  S **************
     //*************************************************
+	
+    //*********************************
+    //******* C O N S U L T A R *******
+    //*********************************
 	public Tecnico findById(Integer id) {
 		Optional<Tecnico> obj = tecnicoRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+id));
@@ -39,18 +45,23 @@ public class TecnicoService {
 		return tecnicoRepository.findAll();
 	}
 
+	
+    //*****************************
+    //******* I N C L U I R *******
+    //*****************************		
 	public Tecnico inluirTecnico(TecnicoDTO objDTO) {
 
 		// Validar o CPF e o EMAIL
 		validaPorCpfEEmail(objDTO);
 		
 		objDTO.setId(null); // Por questão de segurança
+		
 		// Converter TecnicoDTO em Técnico (entidade) 
-		Tecnico newObj = new Tecnico(objDTO); // Criar um tecnico à partir de um DTO.
+		Tecnico newObj = new Tecnico(objDTO); // Criar um tecnico à partir de um tcnicoDTO.
 		return tecnicoRepository.save(newObj);
 	}
 
-	// Método que recebe um TecnicoDTO como parâmetro
+	// Método que recebe um TecnicoDTO como parâmetro e valida por CPF e EMAIL
 	private void validaPorCpfEEmail(TecnicoDTO objDTO) {
 
 		// VALIDA O CPF
@@ -67,6 +78,26 @@ public class TecnicoService {
 			// lançar uma exceção aqui		
 			throw new DataIntegrityViolationException("Email já cadastrado no sistema!");
 		}
+	}
+
+    //*********************************
+    //******* A T U A L I Z A R *******
+    //*********************************	
+	public Tecnico atualizarTecnico(Integer id, @Valid TecnicoDTO objDto) {
+		// Por segurança, atribuir o id recebido ao id do objDTO
+		objDto.setId(id);
+		
+		// Verifica se o tecnico existe e, caso não exista, será lançada uma exceção
+		Tecnico objAtualizado = findById(id); 
+		
+		// Valida por CPF e EMAIL
+		validaPorCpfEEmail(objDto);
+		
+		// Se técnico existe e CPF e EMAIL estão corretos, então 
+		// Cria um tecnico atualizado à partir de um tecnicoDTO.
+		objAtualizado = new Tecnico(objDto); 
+		
+		return tecnicoRepository.save(objAtualizado);
 	}
 
 }
