@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,18 +56,19 @@ public class TecnicoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<TecnicoDTO> incluirTecnico(@RequestBody TecnicoDTO objDTO) {
+	public ResponseEntity<TecnicoDTO> incluirTecnico(@Valid @RequestBody TecnicoDTO objDTO) {
 		Tecnico newObj = tecnicoService.inluirTecnico(objDTO);
-		/* Quando crio um novo objeto no BD ele recebe um id. Logo, é importante eu retornar
-		 * para o usuário, na aplicação cliente, a (URL = URI) de acesso a esse novo objeto.  
-		 * Isto é como se estivéssemos retornando o id do objeto criado para o usuário.
-		 */
 		URI uri = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")
 				.buildAndExpand(newObj.getId()).toUri();
 		
 		return ResponseEntity.created(uri).build();
+		/* Quando crio um novo objeto no BD ele recebe um id. Logo, é importante eu 
+		 * retornar para o usuário, na aplicação cliente, a (URL = URI) de acesso a 
+		 * esse novo objeto. Isto é como se estivéssemos retornando o id do objeto 
+		 * criado para o usuário.
+		 */
 	}
 
 }

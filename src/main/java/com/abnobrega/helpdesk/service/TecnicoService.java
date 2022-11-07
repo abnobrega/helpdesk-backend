@@ -67,7 +67,6 @@ public class TecnicoService {
 			// lançar uma exceção aqui		
 			throw new DataIntegrityViolationException("Email já cadastrado no sistema!");
 		}
-		
 	}
 
 }
