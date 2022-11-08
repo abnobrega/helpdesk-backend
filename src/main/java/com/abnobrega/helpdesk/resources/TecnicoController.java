@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,10 +25,14 @@ import com.abnobrega.helpdesk.service.TecnicoService;
 //********************************************
 //************** API de TECNICO **************
 //********************************************
-
+//Endpoint para acessar os serviços/recursos do técnico.
 @RestController
-@RequestMapping(value = "/api/tecnicos") // Endpoint para acessar os serviços/recursos do técnico.
+@RequestMapping(value = "/api/tecnicos") 
 public class TecnicoController {
+	
+	//@Value("${teste.mensagem}")
+	//private String mensagem;
+	
     // Essa classe é um controlador REST de técnico, que vai receber as requisições HTTP e 
 	// vai se comunicar dentro da arquitetura REST. => Requisição http://localhost/api/tecnicos
 
@@ -44,6 +49,7 @@ public class TecnicoController {
     //*********************************
     //******* C O N S U L T A R *******
     //*********************************
+	// Endpoints para consultar técnicos	
 	@GetMapping(value = "/{id}")
 	// localhost/api/tecnicos/id	
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
@@ -59,10 +65,21 @@ public class TecnicoController {
 		List<TecnicoDTO> listaDTO = lista.stream().map(obj -> new TecnicoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listaDTO); // No corpo da resposta retorno uma lista.
 	}
-	
+
+    //*****************************
+    //******* E X C L U I R *******
+    //*****************************
+	// Endpoint para excluir um técnico	
+	@DeleteMapping(value = "/{id}") // Endpoint que recebe o id na URL
+	public ResponseEntity<TecnicoDTO> excluirTecnico(@PathVariable Integer id) {
+		tecnicoService.excluirTecnico(id);
+		return ResponseEntity.noContent().build();
+	}
+		
     //*****************************
     //******* I N C L U I R *******
     //*****************************	
+	// Endpoint para incluir um novo técnico
 	@PostMapping
 	public ResponseEntity<TecnicoDTO> incluirTecnico(@Valid @RequestBody TecnicoDTO objDTO) {
 		Tecnico newObj = tecnicoService.inluirTecnico(objDTO);
@@ -82,6 +99,7 @@ public class TecnicoController {
     //*********************************
     //******* A T U A L I Z A R *******
     //*********************************	
+	// Endpoint para atualizar os dados de um técnico	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<TecnicoDTO> atualizarTecnico(@PathVariable Integer id,
 													   @Valid @RequestBody TecnicoDTO objDto){

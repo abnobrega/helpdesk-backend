@@ -44,7 +44,21 @@ public class TecnicoService {
 	public List<Tecnico> ListarTecnicos() {
 		return tecnicoRepository.findAll();
 	}
-
+	
+    //*****************************
+    //******* E X C L U I R *******
+    //*****************************
+	public void excluirTecnico(Integer id) {
+		Tecnico obj = findById(id);
+		
+		// Se o tecnico possui qualquer chamado para ele, não pderá ser excluído. RN006
+		if (obj.getChamados().size() > 0){
+			// lançar uma exceção aqui		
+			throw new DataIntegrityViolationException("Tecnico possui chamado e não pode ser excluído.");
+		}
+		
+		tecnicoRepository.deleteById(id);
+	}
 	
     //*****************************
     //******* I N C L U I R *******
@@ -58,6 +72,7 @@ public class TecnicoService {
 		
 		// Converter TecnicoDTO em Técnico (entidade) 
 		Tecnico newObj = new Tecnico(objDTO); // Criar um tecnico à partir de um tcnicoDTO.
+		
 		return tecnicoRepository.save(newObj);
 	}
 
