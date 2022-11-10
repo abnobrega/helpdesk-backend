@@ -25,7 +25,7 @@ import com.abnobrega.helpdesk.service.ClienteService;
 //********************************************
 //************** API de CLIENTE **************
 //********************************************
-//Endpoint para acessar os serviços/recursos do cliente.
+//Endpoint incial para acessar os serviços/recursos do cliente.
 @RestController
 @RequestMapping(value = "/api/clientes") 
 public class ClienteController {
@@ -50,9 +50,9 @@ public class ClienteController {
 	// localhost/api/tecnicos/id	
 	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
 		Cliente obj = clienteService.findById(id);
-		// Retornar o ClienteDTO para o cliente.
-		return ResponseEntity.ok().body(new ClienteDTO(obj));
-				
+		// Retornar um ResponseEntity, onde ok(Fiz a requisição) e no body dessa resposta 
+		// retorno um objeto clienteDTO, usando o construtor que passa como parâmetro um cliente.		
+		return ResponseEntity.ok().body(new ClienteDTO(obj));			
 	}
 	
 	@GetMapping

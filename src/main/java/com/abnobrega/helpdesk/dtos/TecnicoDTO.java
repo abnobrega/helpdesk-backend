@@ -14,12 +14,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class TecnicoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	/*
-	 * Essa classe vai retornar as informações do método GET: findById { "id": 1,
-	 * "nome": "Alexandre B", "cpf": "00132309726", "email": "abonturi@gmail.com",
-	 * "senha": "123", "dataCriacao": "01/11/2022", "perfis": [ "ADMIN", "CLIENTE" ]
-	 * }
-	 */
 
 	// *************************
 	// ******* ATRIBUTOS *******
@@ -55,11 +49,6 @@ public class TecnicoDTO implements Serializable {
 		this.senha = obj.getSenha();
 		this.dataCriacao = obj.getDataCriacao();
 		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
-		/* O atributo perfis é do tipo Integer e o obj.getPerfis retorna uma lista de perfis
-		 * Logo, como são tipos incompatíveis, fazemos um stream e mapeamos cada x, 
-		 * onde para cada perfil x vamos chamar o método getCodigo e adicionamos na minha lista. 
-		 * Pra isso, dou um collect, coletando tudo Collector e fazendo a conversão para Set (lista) 
-		 */		
 		setPerfil(Perfil.CLIENTE);
 	}
 

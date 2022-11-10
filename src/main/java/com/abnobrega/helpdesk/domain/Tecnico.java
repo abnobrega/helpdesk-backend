@@ -29,12 +29,12 @@ public class Tecnico extends Pessoa {
 	//****************************	
 	public Tecnico() {
 		super();
-		addPerfil(Perfil.CLIENTE);	// RN001			
+		setPerfil(Perfil.CLIENTE);	// RN001			
 	}
 
 	public Tecnico(Integer id, String nome, String cpf, String email, String senha) {
 		super(id, nome, cpf, email, senha);
-		addPerfil(Perfil.CLIENTE);	// RN001			
+		setPerfil(Perfil.CLIENTE);	// RN001			
 	}
 	
 	public Tecnico(TecnicoDTO obj) {

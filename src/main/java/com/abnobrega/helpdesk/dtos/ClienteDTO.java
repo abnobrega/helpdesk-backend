@@ -36,6 +36,7 @@ public class ClienteDTO implements Serializable {
 	protected String senha;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	protected LocalDate dataCriacao = LocalDate.now();
+	// Lista de perfis, onde: HashSet evita ponteiros nulos e Set evita perfis duplicados	
 	protected Set<Integer> perfis = new HashSet<>();
 
 	// ****************************
@@ -55,14 +56,14 @@ public class ClienteDTO implements Serializable {
 		this.senha = obj.getSenha();
 		this.dataCriacao = obj.getDataCriacao();
 		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+		setPerfil(Perfil.CLIENTE);
 		/* O atributo perfis é do tipo Integer e o obj.getPerfis retorna uma lista de perfis
 		 * Logo, como são tipos incompatíveis, fazemos um stream e mapeamos cada x, 
 		 * onde para cada perfil x vamos chamar o método getCodigo e adicionamos na minha lista. 
 		 * Pra isso, dou um collect, coletando tudo Collector e fazendo a conversão para Set (lista) 
-		 */		
-		setPerfil(Perfil.CLIENTE);
+		 */				
 	}
-
+	
 	//*************************
 	//*******  MÉTODOS  *******
 	//*************************			

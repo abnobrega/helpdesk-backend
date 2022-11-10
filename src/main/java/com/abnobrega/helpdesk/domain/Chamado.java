@@ -78,6 +78,22 @@ public class Chamado implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	public LocalDate getDataAbertura() {
+		return dataAbertura;
+	}
+
+	public void setDataAbertura(LocalDate dataAbertura) {
+		this.dataAbertura = dataAbertura;
+	}
+
+	public LocalDate getDataFechamento() {
+		return dataFechamento;
+	}
+
+	public void setDataFechamento(LocalDate dataFechamento) {
+		this.dataFechamento = dataFechamento;
+	}	
 
 	public PrioridadeChamado getPrioridadeChamado() {
 		return prioridadeChamado;
@@ -126,7 +142,7 @@ public class Chamado implements Serializable{
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
