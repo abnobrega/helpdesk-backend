@@ -41,7 +41,7 @@ public class ClienteService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+id));
 	}
 
-	public List<Cliente> ListarClientes() {
+	public List<Cliente> listarClientes() {
 		return clienteRepository.findAll();
 	}
 	

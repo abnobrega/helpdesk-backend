@@ -45,7 +45,7 @@ public class ClienteController {
     //*********************************
     //******* C O N S U L T A R *******
     //*********************************
-	// Endpoints para consultar Clientes	
+	// Endpoints para consultar Cliente pelo id	
 	@GetMapping(value = "/{id}")
 	// localhost/api/tecnicos/id	
 	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
@@ -57,8 +57,13 @@ public class ClienteController {
 	
 	@GetMapping
 	public ResponseEntity<List<ClienteDTO>> findAll() {
-		List<Cliente> lista = clienteService.ListarClientes();
+		List<Cliente> lista = clienteService.listarClientes();
+		// Converter a lista de clientes em lista de clientesDTO		
 		List<ClienteDTO> listaDTO = lista.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
+		/* OBS: Criar uma lista de clientesDTO, chamando a função stream e 
+		 * Em seguida, mapear cada objeto dentro do stream, chamando o new ClienteDTO e 
+		 * passando o respectivo objeto. Finalmente, vou coletar tudo para a listaDTO.  
+		 */		
 		return ResponseEntity.ok().body(listaDTO); // No corpo da resposta retorno uma lista.
 	}
 

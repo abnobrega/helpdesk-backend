@@ -1,5 +1,6 @@
 package com.abnobrega.helpdesk.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,10 @@ public class ChamadoService {
 		  FIM-SE
 		*/
 		return obj.orElseThrow(()-> new ObjectNotFoundException("objeto não encontrado! Id:" + id)); 
+	}
+
+	public List<Chamado> listarChamados() {
+		return chamadoRepository.findAll();
 	}
 
 }
