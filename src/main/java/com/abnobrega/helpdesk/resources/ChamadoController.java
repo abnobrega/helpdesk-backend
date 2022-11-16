@@ -1,14 +1,20 @@
 package com.abnobrega.helpdesk.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.abnobrega.helpdesk.domain.Chamado;
 import com.abnobrega.helpdesk.dtos.ChamadoDTO;
@@ -56,6 +62,21 @@ public class ChamadoController {
 		return ResponseEntity.ok().body(listaDTO);
 	}
 	
+	
+    //*****************************
+    //******* I N C L U I R *******
+    //*****************************	
+	// Endpoint para incluir um novo Chamado
+	@PostMapping
+	public ResponseEntity<ChamadoDTO> incluirChamado(@Valid @RequestBody ChamadoDTO objDTO) {
+		Chamado newObj = chamadoService.incluirChamado(objDTO);
+		// Quando criamos um novo objeto no BD, é uma boa prátoca retornar a URI desse novo objeto. Logo, temos:
+		URI uri = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(newObj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
 	
 	
 }

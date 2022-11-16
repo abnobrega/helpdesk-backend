@@ -34,6 +34,8 @@ public class ChamadoDTO implements Serializable {
 	private Integer idCliente;
 	private String nomeCliente;
 	
+	// OBS: O nome do cliente e o nome do técnico é gerado pelo back-end.
+	
 	// ****************************
 	// ******* CONSTRUTORES *******
 	// ****************************	
