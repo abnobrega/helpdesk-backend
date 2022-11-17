@@ -112,6 +112,7 @@ public class TecnicoService {
 		// Cria um tecnico atualizado à partir de um tecnicoDTO.
 		objAtualizado = new Tecnico(objDto); 
 		
+		// Salva o Técnico Atualizado na BD
 		return tecnicoRepository.save(objAtualizado);
 	}
 

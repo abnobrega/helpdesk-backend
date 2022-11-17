@@ -102,16 +102,17 @@ public class ClienteService {
 		// Por segurança, atribuir o id recebido ao id do objDTO
 		objDto.setId(id);
 		
-		// Verifica se o Cliente existe e, caso não exista, será lançada uma exceção
+		// Verifica se o existe o Cliente com o id passado na URL. Caso não exista, será lançada uma exceção personalizada.		
 		Cliente objAtualizado = findById(id); 
 		
 		// Valida por CPF e EMAIL
 		validaPorCpfEEmail(objDto);
 		
-		// Se técnico existe e CPF e EMAIL estão corretos, então 
-		// Cria um Cliente atualizado à partir de um ClienteDTO.
+		// Se o Técnico existe e CPF e EMAIL estão corretos, então 
+		// Cria um Cliente-Atualizado à partir de um ClienteDTO.
 		objAtualizado = new Cliente(objDto); 
 		
+		// Salva o Cliente Atualizado na BD
 		return clienteRepository.save(objAtualizado);
 	}
 
