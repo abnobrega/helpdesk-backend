@@ -44,7 +44,7 @@ public abstract class Pessoa implements Serializable {
 	protected LocalDate dataCriacao = LocalDate.now();	
 	
 	// Lista de perfis, onde: HashSet evita ponteiros nulos e Set evita perfis duplicados
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.EAGER) // Ao consultar o usua, a lista de perfis vem junto
 	@CollectionTable(name = "PERFIS")
 	protected Set<Integer> perfis = new HashSet<>();
 

@@ -1,4 +1,4 @@
-package com.abnobrega.helpdesk.service;
+package com.abnobrega.helpdesk.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,27 +6,31 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.abnobrega.helpdesk.domain.Cliente;
 import com.abnobrega.helpdesk.domain.Pessoa;
-import com.abnobrega.helpdesk.domain.Tecnico;
-import com.abnobrega.helpdesk.dtos.TecnicoDTO;
+import com.abnobrega.helpdesk.dtos.ClienteDTO;
+import com.abnobrega.helpdesk.repositories.ClienteRepository;
 import com.abnobrega.helpdesk.repositories.PessoaRepository;
-import com.abnobrega.helpdesk.repositories.TecnicoRepository;
 import com.abnobrega.helpdesk.service.exceptions.DataIntegrityViolationException;
 import com.abnobrega.helpdesk.service.exceptions.ObjectNotFoundException;
 
 @Service
-public class TecnicoService {
+public class ClienteService {
 	
     //*************************************************
     //**************  A T R I B U T O S  **************
     //*************************************************
 	@Autowired
-	private TecnicoRepository tecnicoRepository;	// Injeta um tecnicoRepository
+	private ClienteRepository clienteRepository;	// Injeta um ClienteRepository
 	
 	@Autowired
 	private PessoaRepository pessoaRepository;		// Injeta uma pessoaRepository
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder; // Injeta o bCryptPasswordEncoder
 	
 	
     //*************************************************
@@ -36,48 +40,49 @@ public class TecnicoService {
     //*********************************
     //******* C O N S U L T A R *******
     //*********************************
-	public Tecnico findById(Integer id) {
-		Optional<Tecnico> obj = tecnicoRepository.findById(id);
+	public Cliente findById(Integer id) {
+		Optional<Cliente> obj = clienteRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+id));
 	}
 
-	public List<Tecnico> ListarTecnicos() {
-		return tecnicoRepository.findAll();
+	public List<Cliente> listarClientes() {
+		return clienteRepository.findAll();
 	}
 	
     //*****************************
     //******* E X C L U I R *******
     //*****************************
-	public void excluirTecnico(Integer id) {
-		Tecnico obj = findById(id);
+	public void excluirCliente(Integer id) {
+		Cliente obj = findById(id);
 		
-		// Se o tecnico possui qualquer chamado para ele, não pderá ser excluído. RN006
+		// Se o Cliente possui qualquer chamado para ele, não pderá ser excluído. RN006
 		if (obj.getChamados().size() > 0){
 			// lançar uma exceção aqui		
-			throw new DataIntegrityViolationException("Tecnico possui chamado e não pode ser excluído.");
+			throw new DataIntegrityViolationException("Cliente possui chamado e não pode ser excluído.");
 		}
 		
-		tecnicoRepository.deleteById(id);
+		clienteRepository.deleteById(id);
 	}
 	
     //*****************************
     //******* I N C L U I R *******
     //*****************************		
-	public Tecnico inluirTecnico(TecnicoDTO objDTO) {
+	public Cliente inluirCliente(ClienteDTO objDTO) {
 
 		// Validar o CPF e o EMAIL
 		validaPorCpfEEmail(objDTO);
 		
 		objDTO.setId(null); // Por questão de segurança
+		objDTO.setSenha(bCryptPasswordEncoder.encode(objDTO.getSenha())); // Encriptografa a senha do USUA
 		
-		// Converter TecnicoDTO em Técnico (entidade) 
-		Tecnico newObj = new Tecnico(objDTO); // Criar um tecnico à partir de um tcnicoDTO.
+		// Converter ClienteDTO em Técnico (entidade) 
+		Cliente newObj = new Cliente(objDTO); // Criar um Cliente à partir de um ClienteDTO.
 		
-		return tecnicoRepository.save(newObj);
+		return clienteRepository.save(newObj);
 	}
 
-	// Método que recebe um TecnicoDTO como parâmetro e valida por CPF e EMAIL
-	private void validaPorCpfEEmail(TecnicoDTO objDTO) {
+	// Método que recebe um ClienteDTO como parâmetro e valida por CPF e EMAIL
+	private void validaPorCpfEEmail(ClienteDTO objDTO) {
 
 		// VALIDA O CPF
 		Optional<Pessoa> obj1 = pessoaRepository.findByCpf(objDTO.getCpf());
@@ -98,22 +103,22 @@ public class TecnicoService {
     //*********************************
     //******* A T U A L I Z A R *******
     //*********************************	
-	public Tecnico atualizarTecnico(Integer id, @Valid TecnicoDTO objDto) {
+	public Cliente atualizarCliente(Integer id, @Valid ClienteDTO objDto) {
 		// Por segurança, atribuir o id recebido ao id do objDTO
 		objDto.setId(id);
 		
-		// Verifica se o tecnico existe e, caso não exista, será lançada uma exceção
-		Tecnico objAtualizado = findById(id); 
+		// Verifica se o existe o Cliente com o id passado na URL. Caso não exista, será lançada uma exceção personalizada.		
+		Cliente objAtualizado = findById(id); 
 		
 		// Valida por CPF e EMAIL
 		validaPorCpfEEmail(objDto);
 		
-		// Se técnico existe e CPF e EMAIL estão corretos, então 
-		// Cria um tecnico atualizado à partir de um tecnicoDTO.
-		objAtualizado = new Tecnico(objDto); 
+		// Se o Técnico existe e CPF e EMAIL estão corretos, então 
+		// Cria um Cliente-Atualizado à partir de um ClienteDTO.
+		objAtualizado = new Cliente(objDto); 
 		
-		// Salva o Técnico Atualizado na BD
-		return tecnicoRepository.save(objAtualizado);
+		// Salva o Cliente Atualizado na BD
+		return clienteRepository.save(objAtualizado);
 	}
 
 }

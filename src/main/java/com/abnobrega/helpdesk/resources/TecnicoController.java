@@ -20,7 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.abnobrega.helpdesk.domain.Tecnico;
 import com.abnobrega.helpdesk.dtos.TecnicoDTO;
-import com.abnobrega.helpdesk.service.TecnicoService;
+import com.abnobrega.helpdesk.services.TecnicoService;
 
 //********************************************
 //************** API de TECNICO **************

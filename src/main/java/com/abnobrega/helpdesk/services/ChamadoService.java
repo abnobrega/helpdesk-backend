@@ -1,4 +1,4 @@
-package com.abnobrega.helpdesk.service;
+package com.abnobrega.helpdesk.services;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -19,7 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.abnobrega.helpdesk.domain.Chamado;
 import com.abnobrega.helpdesk.dtos.ChamadoDTO;
-import com.abnobrega.helpdesk.service.ChamadoService;
+import com.abnobrega.helpdesk.services.ChamadoService;
 
 //********************************************
 //************** API de CHAMADO **************

@@ -20,7 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.abnobrega.helpdesk.domain.Cliente;
 import com.abnobrega.helpdesk.dtos.ClienteDTO;
-import com.abnobrega.helpdesk.service.ClienteService;
+import com.abnobrega.helpdesk.services.ClienteService;
 
 //********************************************
 //************** API de CLIENTE **************

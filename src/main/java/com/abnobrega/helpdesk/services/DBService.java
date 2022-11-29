@@ -1,8 +1,9 @@
-package com.abnobrega.helpdesk.service;
+package com.abnobrega.helpdesk.services;
 
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.abnobrega.helpdesk.domain.Chamado;
@@ -25,32 +26,34 @@ public class DBService {
 	private ClienteRepository clienteRepository;
 	@Autowired
 	private ChamadoRepository chamadoRepository;
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public void instanciaDB() {
 		// Instancia um técnico
-		Tecnico tec1 = new Tecnico(null, "Alexandre Bonturi Nóbrega", "001.323.097-26", "abonturi@gmail.com", "123");
+		Tecnico tec1 = new Tecnico(null, "Alexandre Bonturi Nóbrega", "001.323.097-26", "abonturi@gmail.com", bCryptPasswordEncoder.encode("123"));
 		tec1.setPerfil(Perfil.ADMIN);
 		
-		Tecnico tec2 = new Tecnico(null, "Ricardo Stallman", "623.572.010-61", "rsatllman@gmail.com", "123");
+		Tecnico tec2 = new Tecnico(null, "Ricardo Stallman", "623.572.010-61", "rsatllman@gmail.com", bCryptPasswordEncoder.encode("123"));
 		tec2.setPerfil(Perfil.TECNICO);		
-		Tecnico tec3 = new Tecnico(null, "Cláudia Shanon", "290.951.710-19", "cshanon@gmail.com", "123");
+		Tecnico tec3 = new Tecnico(null, "Cláudia Shanon", "290.951.710-19", "cshanon@gmail.com", bCryptPasswordEncoder.encode("123"));
 		tec3.setPerfil(Perfil.TECNICO);			
-		Tecnico tec4 = new Tecnico(null, "Mônica Veloso", "715.946.450-86", "mveloso@gmail.com", "123");
+		Tecnico tec4 = new Tecnico(null, "Mônica Veloso", "715.946.450-86", "mveloso@gmail.com", bCryptPasswordEncoder.encode("123"));
 		tec4.setPerfil(Perfil.TECNICO);			
-		Tecnico tec5 = new Tecnico(null, "Linus Tovalds", "012.958.250-66", "ltovalds@gmail.com", "123");		
+		Tecnico tec5 = new Tecnico(null, "Linus Tovalds", "012.958.250-66", "ltovalds@gmail.com", bCryptPasswordEncoder.encode("123"));		
 		tec5.setPerfil(Perfil.TECNICO);
-		Tecnico tec6 = new Tecnico(null, "Euclides de Alexandria", "633.233.440-14", "euclides@gmail.com", "123");		
+		Tecnico tec6 = new Tecnico(null, "Euclides de Alexandria", "633.233.440-14", "euclides@gmail.com", bCryptPasswordEncoder.encode("123"));		
 		tec6.setPerfil(Perfil.TECNICO);			
 
-		Cliente cli1 = new Cliente(null, "Albert Einstein", "561.428.420-66", "aeinstein@gmail.com", "1234");
+		Cliente cli1 = new Cliente(null, "Albert Einstein", "561.428.420-66", "aeinstein@gmail.com", bCryptPasswordEncoder.encode("123"));
 		cli1.setPerfil(Perfil.CLIENTE);
-		Cliente cli2 = new Cliente(null, "Marie Curie", "029.270.800-97", "mcurie@gmail.com", "1234");
+		Cliente cli2 = new Cliente(null, "Marie Curie", "029.270.800-97", "mcurie@gmail.com", bCryptPasswordEncoder.encode("123"));
 		cli2.setPerfil(Perfil.CLIENTE);	
-		Cliente cli3 = new Cliente(null, "Charles Darwin", "086.200.030-03", "cdarwin@gmail.com", "1234");
+		Cliente cli3 = new Cliente(null, "Charles Darwin", "086.200.030-03", "cdarwin@gmail.com", bCryptPasswordEncoder.encode("123"));
 		cli3.setPerfil(Perfil.CLIENTE);
-		Cliente cli4 = new Cliente(null, "Tom Jobim", "732.178.090-25", "tjobim@gmail.com", "1234");
+		Cliente cli4 = new Cliente(null, "Tom Jobim", "732.178.090-25", "tjobim@gmail.com", bCryptPasswordEncoder.encode("123"));
 		cli4.setPerfil(Perfil.CLIENTE);			
-		Cliente cli5 = new Cliente(null, "Ivan Lins", "747.052.940-33", "ilins@gmail.com", "1234");
+		Cliente cli5 = new Cliente(null, "Ivan Lins", "747.052.940-33", "ilins@gmail.com", bCryptPasswordEncoder.encode("123"));
 		cli5.setPerfil(Perfil.CLIENTE);			
 
 		Chamado cha1 = new Chamado(null, PrioridadeChamado.MEDIA, StatusChamado.ANDAMENTO, "Chamado 01",
