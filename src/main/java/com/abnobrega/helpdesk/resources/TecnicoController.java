@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -70,7 +71,8 @@ public class TecnicoController {
     //******* E X C L U I R *******
     //*****************************
 	// Endpoint para excluir um técnico	
-	@DeleteMapping(value = "/{id}") // Endpoint que recebe o id na URL
+	@PreAuthorize("hasAnyRole('ADMIN')")// RN012 => Somente o ADMIN pode excluir um técnico	
+	@DeleteMapping(value = "/{id}")    // Endpoint que recebe o id na URL
 	public ResponseEntity<TecnicoDTO> excluirTecnico(@PathVariable Integer id) {
 		tecnicoService.excluirTecnico(id);
 		return ResponseEntity.noContent().build();
@@ -80,6 +82,7 @@ public class TecnicoController {
     //******* I N C L U I R *******
     //*****************************	
 	// Endpoint para incluir um novo técnico
+	@PreAuthorize("hasAnyRole('ADMIN')") // RN012 => Somente o ADMIN pode incluir um técnico	
 	@PostMapping
 	public ResponseEntity<TecnicoDTO> incluirTecnico(@Valid @RequestBody TecnicoDTO objDTO) {
 		Tecnico newObj = tecnicoService.inluirTecnico(objDTO);
@@ -100,6 +103,7 @@ public class TecnicoController {
     //******* A T U A L I Z A R *******
     //*********************************	
 	// Endpoint para atualizar os dados de um técnico	
+	@PreAuthorize("hasAnyRole('ADMIN')") // RN012 => Somente o ADMIN pode atualizar um técnico		
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<TecnicoDTO> atualizarTecnico(@PathVariable Integer id,
 													   @Valid @RequestBody TecnicoDTO objDto){

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,24 +17,30 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.abnobrega.helpdesk.security.JWTAutorizationFilter;
 import com.abnobrega.helpdesk.security.JWTUtil;
 import com.abnobrega.helpdesk.security.JwtAuthenticationFilter;
 
 @SuppressWarnings("deprecation")
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};  
 	
+	//*************************
+	//******* ATRIBUTOS *******
+	//*************************		
 	@Autowired
-	private Environment environment;
-	
+	private Environment environment; // Injeta uma instância de Environment aqui.
 	@Autowired
-	private JWTUtil jwtUtil;
-	
+	private JWTUtil jwtUtil; // Injeta uma instância de JWTUtil aqui.
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private UserDetailsService userDetailsService; // Injeta uma instância de UserDetailsService aqui
 	
+	//*************************
+	//*******  MÉTODOS  *******
+	//*************************			
 	// Este método abaixo é onde adiciono minhas defesas contra vulnerabilidades 
 	// nos meus endpoints, adiciono conigurações de filtros, etc.
 	@Override
@@ -49,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// o @bean abaixo
 		http.cors().and().csrf().disable();
 		http.addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAutorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		http.authorizeRequests()
 			.antMatchers(PUBLIC_MATCHERS).permitAll()
 			.anyRequest().authenticated();
